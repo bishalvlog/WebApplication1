@@ -1,86 +1,48 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.ComponentModel.DataAnnotations;
-using System.Net;
+using WebApplication1.Data;
+using WebApplication1.Dtos;
+using WebApplication1.Model;
 
 namespace WebApplication1.Controllers
 {
+
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/home")]
     public class HomeController : Controller
     {
-        public static List<Item> _items = new List<Item>
+        private readonly ApplicationDbContext _context;
+        public HomeController(ApplicationDbContext context)
         {
-            new Item {Id = Guid.NewGuid(), Name = "Bishal" , Description = "Dotnet tutor"},
-            new Item {Id = Guid.NewGuid(), Name =" student", Description =" dear student"}
-        };
+            _context = context;
+        }
+
+        [HttpPost("Add")]
+        public IActionResult AddUser([FromBody] InsertUserDto userDto)
+        {
+            var user = new User
+            {
+                FirstName = userDto.FirstName,
+                LastName = userDto.LastName,
+                Gender = userDto.Gender,
+                ImageURL = userDto.ImageURL,
+                RegisteredDate = userDto.RegisteredDate,
+                IsActive = true
+            };
+
+            _context.Users.Add(user);
+
+            _context.SaveChanges();
+
+            return Ok("User Addede Successfully");
+        }
 
         [HttpGet]
         public IActionResult GetAll()
         {
-            return Ok(_items);
+            var users = _context.Users.ToList();
+
+             return Ok(users);
         }
 
-        [HttpGet("{id:guid}")]
-        public IActionResult GetById(Guid id)
-        {
-            var item = _items.FirstOrDefault(x => x.Id == id);
-
-            if (item == null)  return NotFound();
-
-            return Ok(item);
-
-        }
-
-        [HttpPost]
-        public IActionResult Create([FromBody] Item item)
-        {
-            if(item == null) return BadRequest("invalid data");
-
-            item.Id = Guid.NewGuid();
-
-            _items.Add(item);
-
-            return CreatedAtAction(nameof(GetById), new { id   = item.Id}, item);
-        }
-
-        [HttpPut("{id:guid}")]
-        public IActionResult Update( Guid id, [FromBody] Item updatedItem)
-        {
-            var item = _items.FirstOrDefault(i => i.Id == id);
-
-            if(item == null) return NotFound("data not fount");
-
-            item.Name = updatedItem.Name;
-
-            item.Description = updatedItem.Description;
-
-            return Ok(item);
-        }
-
-        [HttpDelete("{id:guid}")]
-        public IActionResult Delete (Guid id)
-        {
-            var item = _items.FirstOrDefault(i => i.Id == id);
-
-            if (item == null) return NotFound("Data not found");
-
-            _items.Remove(item);
-            return Ok(new
-            {
-                message = " item deleted successfully",
-                deletedItem = item,
-                HttpStatusCode = (int)HttpStatusCode.OK
-            });
-        }
-
-        public class Item
-        {
-            public Guid Id { get; set; }
-
-            [Required(ErrorMessage = "Name is require !")]
-            public string Name { get; set; }
-
-            public string Description { get; set; }
-        }
     }
 }
