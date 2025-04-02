@@ -21,5 +21,6 @@ namespace WebApplication1.Model
         public DateTime RegisteredDate { get; set; } = DateTime.UtcNow;
 
         public bool IsActive { get; set; }
+
     }
 }
