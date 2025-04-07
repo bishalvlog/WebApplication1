@@ -6,7 +6,7 @@ namespace WebApplication1.Services.Interface
     {
         void AddUser(InsertUserDto userDto);
 
-        GetAllUser GetAllUsers();
+        List<GetAllUser> GetAllUsers();
 
         GetAllUser GetById(Guid id);
 

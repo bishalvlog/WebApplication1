@@ -13,5 +13,7 @@ namespace WebApplication1.Dtos
         public string? ImageURL { get; set; }
 
         public DateTime RegisteredDate { get; set; }
+
+        public bool IsActive { get; set; }  
     }
 }

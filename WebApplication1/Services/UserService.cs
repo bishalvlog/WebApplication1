@@ -53,23 +53,28 @@ namespace WebApplication1.Services
             }
         }
 
-        public GetAllUser GetAllUsers()
+        public List<GetAllUser> GetAllUsers()
         {
             try
             {
-                var users = _context.Users.Where(u => !u.IsActive).FirstOrDefault();
+                var users = _context.Users.Where(u => !u.IsActive).ToList();
 
                 if (users == null)
                     throw new Exception("No active users found");
 
-                var result = new GetAllUser()
+                var result = new List<GetAllUser>();
+
+                foreach(var u in users)
                 {
-                    FirstName = users.FirstName,
-                    LastName = users.LastName,
-                    Gender = users.Gender,
-                    ImageURL = users.ImageURL,
-                    RegisteredDate = users.RegisteredDate
-                };
+                   result.Add( new GetAllUser
+                   {
+                        FirstName = u.FirstName,
+                        LastName  = u.LastName,
+                        Gender   = u.Gender,
+                        ImageURL = u.ImageURL,
+                        RegisteredDate = u.RegisteredDate
+                   });
+                }
 
                 return result;
                            
@@ -112,6 +117,7 @@ namespace WebApplication1.Services
                 user.LastName = userDto.LastName;
                 user.Gender = userDto.Gender;
                 user.ImageURL = userDto.ImageURL;
+                user.IsActive  = userDto.IsActive;
 
                 _context.Users.Update(user);
                 _context.SaveChanges();
