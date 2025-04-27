@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using WebApplication1.Data;
+using WebApplication1.Middleware;
 using WebApplication1.Services;
 using WebApplication1.Services.Interface;
 
@@ -34,13 +35,13 @@ builder.Services.AddSwaggerGen(option =>
     {
         {
              new OpenApiSecurityScheme
-            {
+             {
                 Reference = new OpenApiReference
                 {
                     Type = ReferenceType.SecurityScheme,
                     Id =  "Bearer"
                 }
-            },[]
+             },[]
         }
        
     });
@@ -57,6 +58,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(
 builder.Services.AddScoped<IUserService, UserService>();
 
 var app = builder.Build();
+
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.MapIdentityApi<IdentityUser>();
 
