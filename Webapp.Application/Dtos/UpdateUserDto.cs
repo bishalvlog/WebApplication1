@@ -1,8 +1,8 @@
-﻿using WebApplication1.Constants;
+﻿using Webapp.Constants;
 
-namespace WebApplication1.Dtos
+namespace Webapp.Application.Dtos
 {
-    public class GetAllUser
+    public class UpdateUserDto
     {
         public string FirstName { get; set; }
 
@@ -13,5 +13,7 @@ namespace WebApplication1.Dtos
         public string? ImageURL { get; set; }
 
         public DateTime RegisteredDate { get; set; }
+
+        public bool IsActive { get; set; }  
     }
 }

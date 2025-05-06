@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using WebApplication1.Constants;
+using Webapp.Constants;
 
-namespace WebApplication1.Model
+namespace Webapp.Domain
 {
     [Table("User")]
     public class User

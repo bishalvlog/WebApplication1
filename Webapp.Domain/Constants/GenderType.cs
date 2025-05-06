@@ -1,4 +1,4 @@
-﻿namespace WebApplication1.Constants
+﻿namespace Webapp.Constants
 {
     public enum GenderType
     {

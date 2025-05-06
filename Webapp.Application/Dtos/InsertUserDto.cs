@@ -1,6 +1,6 @@
-﻿using WebApplication1.Constants;
+﻿using Webapp.Constants;
 
-namespace WebApplication1.Dtos
+namespace Webapp.Application.Dtos
 {
     public class InsertUserDto
     {

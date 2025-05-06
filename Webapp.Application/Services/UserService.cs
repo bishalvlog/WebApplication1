@@ -1,9 +1,9 @@
-﻿using WebApplication1.Data;
-using WebApplication1.Dtos;
-using WebApplication1.Model;
-using WebApplication1.Services.Interface;
+﻿using Webapp.Application.Data;
+using Webapp.Application.Dtos;
+using Webapp.Application.Services.Interface;
+using Webapp.Domain;
 
-namespace WebApplication1.Services
+namespace Webapp.Application.Services
 {
     public class UserService : IUserService
     {
@@ -12,6 +12,7 @@ namespace WebApplication1.Services
         public UserService(ApplicationDbContext context)
         {
             _context = context;
+           
         }
         public void AddUser(InsertUserDto userDto)
         {
@@ -33,6 +34,7 @@ namespace WebApplication1.Services
             catch (Exception ex)
             {
                 throw new Exception("Error adding user: " + ex.Message);
+                
             }
         }
 

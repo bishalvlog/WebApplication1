@@ -1,10 +1,11 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
-using WebApplication1.Data;
 using WebApplication1.Middleware;
-using WebApplication1.Services;
-using WebApplication1.Services.Interface;
+using Webapp.Application.Services;
+using Webapp.Application.Services.Interface;
+using Webapp.Application.Data;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -55,7 +56,7 @@ builder.Services.AddIdentityApiEndpoints<IdentityUser>()
 builder.Services.AddDbContext<ApplicationDbContext>(
     d => d.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IUserService,UserService>();
 
 var app = builder.Build();
 
