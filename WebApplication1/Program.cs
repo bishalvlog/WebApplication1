@@ -2,9 +2,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using WebApplication1.Middleware;
-using Webapp.Application.Services;
 using Webapp.Application.Services.Interface;
 using Webapp.Application.Data;
+using Webapp.Infrastructures.Services;
 
 
 var builder = WebApplication.CreateBuilder(args);

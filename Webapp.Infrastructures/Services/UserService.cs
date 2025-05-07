@@ -3,7 +3,7 @@ using Webapp.Application.Dtos;
 using Webapp.Application.Services.Interface;
 using Webapp.Domain;
 
-namespace Webapp.Application.Services
+namespace Webapp.Infrastructures.Services
 {
     public class UserService : IUserService
     {
